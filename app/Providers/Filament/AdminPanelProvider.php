@@ -8,6 +8,7 @@ use App\Models\User;
 use Filament\Widgets;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use App\Filament\Resources\LogResource;
 use Filament\Http\Middleware\Authenticate;
 use Rmsramos\Activitylog\ActivitylogPlugin;
 use Illuminate\Session\Middleware\StartSession;
@@ -58,7 +59,15 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->plugins([
                 \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
-                ActivitylogPlugin::make(),
+                ActivitylogPlugin::make()
+                ->resource(LogResource::class)
+                ->label('Log')
+                ->pluralLabel('Logs')
+                ->navigationItem(true)
+                ->navigationGroup('Activity Log')
+                ->navigationIcon('heroicon-o-shield-check')
+                ->navigationCountBadge(true)
+                ->navigationSort(2),
             ]);
     }
 }
