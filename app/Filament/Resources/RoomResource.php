@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Rmsramos\Activitylog\Actions\ActivityLogTimelineTableAction;
 
 class RoomResource extends Resource
 {
@@ -102,6 +103,15 @@ class RoomResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                ActivityLogTimelineTableAction::make('Activities')
+                ->timelineIcons([
+                    'created' => 'heroicon-m-check-badge',
+                    'updated' => 'heroicon-m-pencil-square',
+                ])
+                ->timelineIconColors([
+                    'created' => 'info',
+                    'updated' => 'warning',
+                ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
